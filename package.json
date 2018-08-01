@@ -49,7 +49,7 @@
     "commands": [
       {
         "command": "extension.markdownPasteImage",
-        "title": "paster image"
+        "title": "Paste Image"
       }
     ]
   },
