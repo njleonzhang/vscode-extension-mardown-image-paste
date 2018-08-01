@@ -7,18 +7,14 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { spawn, ChildProcess } from 'child_process';
 import * as Constant from './const';
-
 const ipc = require('node-ipc');
 
-// let imagePath = vscode.workspace.getConfiguration('pasteImage')['iamgePath'];
-let imagePath = '/Users/leon/Documents/git/markdown-image-paste/tmpPicture.png';
 let electron: ChildProcess;
-tinify.key = 's2ox1BVKJ2BrT8CmYZqZSEBBsebt62vh'; // the key is assigned to property _key
+tinify.key = vscode.workspace.getConfiguration('tinyPngKey'); // the key is assigned to property _key
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
     console.log('Congratulations, your extension "markdown-image-paste" is now active!');
 
     // The code you place here will be executed every time your command is executed
@@ -27,6 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     var spawn_env = JSON.parse(JSON.stringify(process.env));
 
+    // start electron in non-node model, otherwise, the electron api can not be used.
     delete spawn_env.ATOM_SHELL_INTERNAL_RUN_AS_NODE;
     delete spawn_env.ELECTRON_RUN_AS_NODE;
 
@@ -35,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
         stdio: ['pipe', 'pipe', 'pipe', 'ipc']
     });
 
-    // start the ipc server
+    // connect to the ipc server started by electron process
     ipc.config.id = Constant.parentIpcId;
     ipc.config.retry = 1500;
     ipc.config.silent = true;
@@ -45,13 +42,20 @@ export function activate(context: vscode.ExtensionContext) {
         ipcChannel = ipc.of[Constant.childIpcId];
 
         ipcChannel.on('connect', () => {
-            // the first time invoke this plugin
+            // the first time invoke this plugin, the icp is not connected,
+            // ipcChannel is not initialized, so we trigger the message here.
             ipcChannel.emit(Constant.msg_getClipboardContent, '');
         });
 
         ipcChannel.on(Constant.msg_resClipboardContent, (data: any) => {
             let buffer = new Buffer(data.data);
+
+            if (!data || !data.data || !data.data.length) {
+                return vscode.window.showWarningMessage('Please copy a picture to clipboard for paste!');
+            }
+
             if ((tinify as any)._key) {
+                // if tinify key is set, we leverage the tool to optimize the picture.
                 tinify.fromBuffer(buffer).toFile('/Users/leon/Documents/git/markdown-image-paste/optimized.png');
                 console.log('It\'s optimized and saved!');
             } else {
@@ -62,6 +66,8 @@ export function activate(context: vscode.ExtensionContext) {
                     console.log('It\'s saved!');
                 });
             }
+
+            insertImageToMd();
         });
     });
 
@@ -69,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
     let disposable = vscode.commands.registerCommand('extension.markdownPasteImage', async () => {
-        // trigger the process by send the get clipboard content message to electron process
+        // except of the first time the plugin is loaded, ipcChannel should be initialized.
         if (ipcChannel) {
             ipcChannel.emit(Constant.msg_getClipboardContent);
         }
@@ -80,6 +86,20 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() {
+    // disconnect ipc and kill the electron process
     ipc.disconnect(Constant.childIpcId);
     electron.kill();
+}
+
+function insertImageToMd() {
+    let editor = vscode.window.activeTextEditor;
+    editor.edit((edit: any) => {
+        let current = editor.selection;
+
+        if (current.isEmpty) {
+            edit.insert(current.start, '![](12341234)');
+        } else {
+            edit.replace(current, '![](12341234)');
+        }
+    });
 }

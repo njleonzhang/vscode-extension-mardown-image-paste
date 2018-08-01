@@ -15,10 +15,21 @@
   ],
   "main": "./out/extension",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "markdown paste image configuration",
+      "properties": {
+        "makrdownPasteImage.tinyPngKey": {
+          "type": "string",
+          "default": "",
+          "description": "the tiny png developer key"
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.markdownPasteImage",
-        "title": "Hello World"
+        "title": "paster image"
       }
     ]
   },
@@ -38,9 +49,12 @@
   },
   "dependencies": {
     "child_process": "^1.0.2",
+    "electron": "^2.0.6",
     "fs": "^0.0.1-security",
+    "node-ipc": "^9.1.1",
     "path": "^0.12.7",
+    "postinstall": "^0.4.1",
     "tinify": "^1.6.0-beta.2",
-    "tree-kill": "^1.2.0"
+    "vscode": "^1.1.18"
   }
 }
