@@ -19,10 +19,30 @@
       "type": "object",
       "title": "markdown paste image configuration",
       "properties": {
-        "makrdownPasteImage.tinyPngKey": {
+        "markdownPasteImage.tinyPngKey": {
           "type": "string",
           "default": "",
           "description": "the tiny png developer key"
+        },
+        "markdownPasteImage.qiniuAK": {
+          "type": "string",
+          "default": "",
+          "description": "the qiniu AK"
+        },
+        "markdownPasteImage.qiniuSK": {
+          "type": "string",
+          "default": "",
+          "description": "the qiniu SK"
+        },
+        "markdownPasteImage.qiniuPreUrl": {
+          "type": "string",
+          "default": "",
+          "description": "the qiniu prrUrl"
+        },
+        "markdownPasteImage.cdnType": {
+          "type": "string",
+          "default": "qiniu",
+          "description": "the qiniu cdn type"
         }
       }
     },
@@ -54,6 +74,7 @@
     "node-ipc": "^9.1.1",
     "path": "^0.12.7",
     "postinstall": "^0.4.1",
+    "qiniu": "^7.2.1",
     "tinify": "^1.6.0-beta.2",
     "vscode": "^1.1.18"
   }

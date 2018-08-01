@@ -7,10 +7,14 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { spawn, ChildProcess } from 'child_process';
 import * as Constant from './const';
+import { createCdnUploader } from './CdnUploader/index';
+
 const ipc = require('node-ipc');
 
 let electron: ChildProcess;
-tinify.key = vscode.workspace.getConfiguration('tinyPngKey'); // the key is assigned to property _key
+let configuration = vscode.workspace.getConfiguration('markdownPasteImage');
+tinify.key = configuration.get('tinyPngKey') || ''; // the key is assigned to property _key
+let cdnType = configuration.get<String>('cdnType') || '';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -54,20 +58,42 @@ export function activate(context: vscode.ExtensionContext) {
                 return vscode.window.showWarningMessage('Please copy a picture to clipboard for paste!');
             }
 
+            // fallback when cdn is not configured, save the cilpbord to current folder.
+            // let currentFilePath = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName;
+            // let targetFolder;
+            // if (!currentFilePath || currentFilePath.match(/^Untitled-.*/)) {
+            // }
+            // console.log(currentFilePath);
+
+            // fs.writeFile('/Users/leon/Documents/git/markdown-image-paste/unOptimized.png', buffer, function (err: any) {
+            //     if (err) {
+            //         throw err;
+            //     }
+            //     console.log('It\'s saved!');
+            // });
+
             if ((tinify as any)._key) {
                 // if tinify key is set, we leverage the tool to optimize the picture.
-                tinify.fromBuffer(buffer).toFile('/Users/leon/Documents/git/markdown-image-paste/optimized.png');
-                console.log('It\'s optimized and saved!');
-            } else {
-                fs.writeFile('/Users/leon/Documents/git/markdown-image-paste/unOptimized.png', buffer, function (err: any) {
+                tinify.fromBuffer(buffer).toBuffer((err, data) => {
                     if (err) {
                         throw err;
                     }
-                    console.log('It\'s saved!');
+
+                    if (data) {
+                        buffer = new Buffer(data);
+                    }
                 });
+                console.log('It\'s optimized and saved!');
             }
 
-            insertImageToMd();
+            let uploader = createCdnUploader(cdnType, configuration);
+            if (uploader) {
+                uploader
+                    .upload(buffer)
+                    .then(url => {
+                        insertImageToMd(url);
+                    });
+            }
         });
     });
 
@@ -91,15 +117,16 @@ export function deactivate() {
     electron.kill();
 }
 
-function insertImageToMd() {
+function insertImageToMd(url: String) {
     let editor = vscode.window.activeTextEditor;
-    editor.edit((edit: any) => {
-        let current = editor.selection;
-
-        if (current.isEmpty) {
-            edit.insert(current.start, '![](12341234)');
-        } else {
-            edit.replace(current, '![](12341234)');
-        }
-    });
+    if (editor) {
+        editor.edit((edit: any) => {
+            let current = (editor as vscode.TextEditor).selection;
+            if (current.isEmpty) {
+                edit.insert(current.start, `![](${url})`);
+            } else {
+                edit.replace(current, `![](${url})`);
+            }
+        });
+    }
 }

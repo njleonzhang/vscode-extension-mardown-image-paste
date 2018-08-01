@@ -1,3 +1,3 @@
 interface CdnUploader {
-  upload(img: Buffer): Promise<String>;
+  upload(img: any): Promise<String>;
 }
