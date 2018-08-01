@@ -4,7 +4,7 @@
 import * as vscode from 'vscode';
 import tinify from 'tinify';
 import * as path from 'path';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import { spawn, ChildProcess } from 'child_process';
 import * as Constant from './const';
 import { createCdnUploader } from './CdnUploader/index';
