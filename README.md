@@ -24,10 +24,14 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
 | markdownPasteImage.qiniuPreUrl | string | "" | qiniu cdn's pre-url  |
 
-## Known Issues
+## Limitations
 
 1. extension size is big, because we need bundle electron in the package
 2. the extension will start a electron process.
-3. only support mac currently, should be easy to support other platform, PR welcomed
+3. only support mac os currently, should be easy to support other platform, PR welcomed
 4. only support qiniu CDN, should be easy support others, such as Amozon S3 and Azure storage.
 5. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485).
+
+## PR welcomed
+1. support more platforms
+2. support more CDN，refer to [current code](https://github.com/njleonzhang/vscode-extension-mardown-image-paste/blob/master/src/CdnUploader/)
