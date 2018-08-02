@@ -4,6 +4,10 @@
   "description": "update tiny the picture, upload to github, and feedback you a link when paste a picture to markdown file ",
   "version": "0.0.1",
   "publisher": "njLeonZhang",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/njleonzhang/vscode-extension-mardown-image-paste"
+  },
   "engines": {
     "vscode": "^1.25.0"
   },
@@ -63,7 +67,9 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    "test": "npm run compile && node ./node_modules/vscode/bin/test",
+    "package": "vsce package --yarn",
+    "publish": "vsce publish --yarn"
   },
   "devDependencies": {
     "typescript": "^2.6.1",
