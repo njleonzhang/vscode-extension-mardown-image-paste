@@ -1,10 +1,9 @@
-# markdown-image-paste README
+# vscode-extension-mardown-image-paste
 
 ## Features
+A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
 ![](https://user-images.githubusercontent.com/13174059/43577232-e3e2d1f0-967d-11e8-8de8-c844aa0b93dd.gif)
-
-A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
 ## How?
 
