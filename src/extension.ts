@@ -16,11 +16,41 @@ let electron: ChildProcess;
 let configuration = vscode.workspace.getConfiguration('markdownPasteImage');
 tinify.key = configuration.get('tinyPngKey') || ''; // the key is assigned to property _key
 let cdnType = configuration.get<String>('cdnType') || '';
+let ipcChannel: any;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "markdown-image-paste" is now active!');
+
+    initPlugin(true);
+
+    // The command has been defined in the package.json file
+    // Now provide the implementation of the command with  registerCommand
+    // The commandId parameter must match the command field in package.json
+    context.subscriptions.push(vscode.commands.registerCommand('extension.markdownPasteImage', async () => {
+        // except of the first time the plugin is loaded, ipcChannel should be initialized.
+        if (ipcChannel) {
+            ipcChannel.emit(Constant.msg_getClipboardContent);
+        }
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('extension.markdownPasteImage.reInit', async () => {
+        initPlugin(false);
+    }));
+}
+
+// this method is called when your extension is deactivated
+export function deactivate() {
+    // disconnect ipc and kill the electron process
+    ipc.disconnect(Constant.childIpcId);
+    electron.kill();
+}
+
+function initPlugin(initInActivate: boolean) {
+    if (electron) {
+        electron.kill();
+    }
 
     // The code you place here will be executed every time your command is executed
     let scriptPath = path.join(__dirname, './clipboard.js');
@@ -42,14 +72,15 @@ export function activate(context: vscode.ExtensionContext) {
     ipc.config.retry = 1500;
     ipc.config.silent = true;
 
-    let ipcChannel: any;
     ipc.connectTo(Constant.childIpcId, () => {
         ipcChannel = ipc.of[Constant.childIpcId];
 
         ipcChannel.on('connect', () => {
             // the first time invoke this plugin, the icp is not connected,
             // ipcChannel is not initialized, so we trigger the message here.
-            ipcChannel.emit(Constant.msg_getClipboardContent, '');
+            if (initInActivate) {
+                ipcChannel.emit(Constant.msg_getClipboardContent, '');
+            }
         });
 
         ipcChannel.on(Constant.msg_resClipboardContent, (data: any) => {
@@ -98,25 +129,6 @@ export function activate(context: vscode.ExtensionContext) {
             }
         });
     });
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.markdownPasteImage', async () => {
-        // except of the first time the plugin is loaded, ipcChannel should be initialized.
-        if (ipcChannel) {
-            ipcChannel.emit(Constant.msg_getClipboardContent);
-        }
-    });
-
-    context.subscriptions.push(disposable);
-}
-
-// this method is called when your extension is deactivated
-export function deactivate() {
-    // disconnect ipc and kill the electron process
-    ipc.disconnect(Constant.childIpcId);
-    electron.kill();
 }
 
 function insertImageToMd(url: String) {

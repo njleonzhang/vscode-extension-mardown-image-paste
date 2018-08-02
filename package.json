@@ -1,6 +1,6 @@
 {
   "name": "markdown-image-paste",
-  "displayName": "markdown-image-paste",
+  "displayName": "markdown image paste",
   "description": "update tiny the picture, upload to github, and feedback you a link when paste a picture to markdown file ",
   "version": "0.0.1",
   "publisher": "njLeonZhang",
@@ -59,6 +59,10 @@
       {
         "command": "extension.markdownPasteImage",
         "title": "Paste Image"
+      },
+      {
+        "command": "extension.markdownPasteImage.reInit",
+        "title": "Paste Image: Reinit"
       }
     ]
   },
@@ -73,20 +77,18 @@
   },
   "devDependencies": {
     "typescript": "^2.6.1",
-    "vscode": "^1.1.6",
+    "vscode": "^1.1.18",
     "tslint": "^5.8.0",
     "@types/node": "^7.0.43",
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
     "child_process": "^1.0.2",
-    "electron": "2.0.6",
     "fs": "^0.0.1-security",
     "node-ipc": "^9.1.1",
     "path": "^0.12.7",
-    "postinstall": "^0.4.1",
     "qiniu": "^7.2.1",
     "tinify": "^1.6.0-beta.2",
-    "vscode": "^1.1.18"
+    "electron": "2.0.6"
   }
 }
