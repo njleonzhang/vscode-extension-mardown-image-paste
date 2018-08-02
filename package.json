@@ -51,7 +51,7 @@
         "markdownPasteImage.cdnType": {
           "type": "string",
           "default": "qiniu",
-          "description": "the qiniu cdn type"
+          "description": "the cdn type"
         }
       }
     },

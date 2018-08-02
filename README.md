@@ -2,62 +2,33 @@
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+![](https://user-images.githubusercontent.com/13174059/43577232-e3e2d1f0-967d-11e8-8de8-c844aa0b93dd.gif)
 
-For example if there is an image subfolder under your extension project workspace:
+A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
-\!\[feature X\]\(images/feature-x.png\)
+## How?
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![](http://pcs7p33sr.bkt.clouddn.com/ca429c26-b378-aece-9ffa-050a3b945f49)
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* The extension spawn a electron process for read image in clipborad via electron api `clipboard.readImage`.
+* send the image to [tinyPng](https://tinypng.com/) for size optimization.
+* send the image to CDN for hosting
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+| Setting | type | default | desc |
+| -- | -- | -- | --|
+| markdownPasteImage.tinyPngKey | string | '' | the tiny png developer key, refer to the [doc](https://tinypng.com/developers) |
+| markdownPasteImage.cdnType | string | "qiniu" |  cdn type, currently support qiniu |
+| markdownPasteImage.qiniuBucket | string | "" | qiniu cdn's bucket name |
+| markdownPasteImage.qiniuAK | string | "" | qiniu cdn's access key |
+| markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
+| markdownPasteImage.qiniuPreUrl | string | "" | qiniu cdn's pre-url  |
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+1. extension size is big, because we need bundle electron in the package
+2. the extension will start a electron process.
+3. only support mac currently, should be easy to support other platform, PR welcomed
+4. only support qiniu CDN, should be easy support others, such as Amozon S3 and Azure storage.
+5. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485).
