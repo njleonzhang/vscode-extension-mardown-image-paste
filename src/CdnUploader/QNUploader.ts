@@ -38,7 +38,7 @@ export class QNUploader implements CdnUploader {
       let token = this.getToken(this.bucket, key);
 
       let config = new qiniu.conf.Config();
-      config.zone = qiniu.zone.Zone_z0;
+      // config.zone = qiniu.zone.Zone_z0;
       let formUploader = new qiniu.form_up.FormUploader(config);
 
       formUploader.put(token, key, asset, null, (respErr: any,
