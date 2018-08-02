@@ -4,10 +4,11 @@
 import * as vscode from 'vscode';
 import tinify from 'tinify';
 import * as path from 'path';
-// import * as fs from 'fs';
+import * as fs from 'fs';
 import { spawn, ChildProcess } from 'child_process';
 import * as Constant from './const';
 import { createCdnUploader } from './CdnUploader/index';
+import { guid } from './tools';
 
 const ipc = require('node-ipc');
 
@@ -58,20 +59,6 @@ export function activate(context: vscode.ExtensionContext) {
                 return vscode.window.showWarningMessage('Please copy a picture to clipboard for paste!');
             }
 
-            // fallback when cdn is not configured, save the cilpbord to current folder.
-            // let currentFilePath = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.fileName;
-            // let targetFolder;
-            // if (!currentFilePath || currentFilePath.match(/^Untitled-.*/)) {
-            // }
-            // console.log(currentFilePath);
-
-            // fs.writeFile('/Users/leon/Documents/git/markdown-image-paste/unOptimized.png', buffer, function (err: any) {
-            //     if (err) {
-            //         throw err;
-            //     }
-            //     console.log('It\'s saved!');
-            // });
-
             if ((tinify as any)._key) {
                 // if tinify key is set, we leverage the tool to optimize the picture.
                 tinify.fromBuffer(buffer).toBuffer((err, data) => {
@@ -83,16 +70,31 @@ export function activate(context: vscode.ExtensionContext) {
                         buffer = new Buffer(data);
                     }
                 });
-                console.log('It\'s optimized and saved!');
+                console.log('It\'s optimized!');
             }
 
-            let uploader = createCdnUploader(cdnType, configuration);
-            if (uploader) {
-                uploader
-                    .upload(buffer)
-                    .then(url => {
-                        insertImageToMd(url);
-                    });
+            let currentFilePath = getCurrentFilePath();
+
+            // if the target file is a temporary file or md file, then try to upload asset to cdn
+            if (currentFilePath.match(/^Untitled-.*|.*\.md$/)) {
+                let uploader = createCdnUploader(cdnType, configuration);
+                if (uploader) {
+                    uploader
+                        .upload(buffer)
+                        .then(url => {
+                            insertImageToMd(url);
+                        })
+                        .catch(e => {
+                            // cdn upload fail
+                            copyAssetToCurrentFolder(buffer, currentFilePath);
+                        });
+                } else {
+                    // no cdn
+                    copyAssetToCurrentFolder(buffer, currentFilePath);
+                }
+            } else {
+                // target file is not md or temporary file.
+                copyAssetToCurrentFolder(buffer, currentFilePath);
             }
         });
     });
@@ -129,4 +131,29 @@ function insertImageToMd(url: String) {
             }
         });
     }
+}
+
+function getCurrentFilePath() {
+    let currentFilePath = (vscode.window.activeTextEditor &&
+        vscode.window.activeTextEditor.document.fileName) || '';
+    return currentFilePath;
+}
+
+// save the cilpbord to current folder as a fallback when cdn can not work.
+function copyAssetToCurrentFolder(buffer: Buffer, currentFilePath: string, fileExtension: string = 'png') {
+    if (!currentFilePath || (currentFilePath && currentFilePath.match(/^Untitled-.*/))) {
+        vscode.window.showWarningMessage('The traget file is temporary, please save it to disk so that picture in clipboard can be copied to the folder of the file when cdn can not work!');
+        return '';
+    }
+
+    let currentFolder = path.dirname(currentFilePath);
+
+    vscode.window.showInformationMessage('save to current folder of the editing file');
+
+    fs.writeFile(`${currentFolder}${path.sep}clipbord-${guid().slice(0, 5)}.${fileExtension}`, buffer, function (err: any) {
+        if (err) {
+            throw err;
+        }
+        console.log('It\'s saved!');
+    });
 }

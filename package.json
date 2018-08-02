@@ -24,6 +24,11 @@
           "default": "",
           "description": "the tiny png developer key"
         },
+        "markdownPasteImage.qiniuBucket": {
+          "type": "string",
+          "default": "",
+          "description": "the qiniu bucket name"
+        },
         "markdownPasteImage.qiniuAK": {
           "type": "string",
           "default": "",
@@ -69,7 +74,7 @@
   },
   "dependencies": {
     "child_process": "^1.0.2",
-    "electron": "^2.0.6",
+    "electron": "2.0.6",
     "fs": "^0.0.1-security",
     "node-ipc": "^9.1.1",
     "path": "^0.12.7",

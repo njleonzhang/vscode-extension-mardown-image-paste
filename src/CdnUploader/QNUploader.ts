@@ -1,30 +1,24 @@
 
 import * as vscode from 'vscode';
+import { guid } from '../tools';
 const qiniu = require('qiniu');
-
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
-
-const bucket = 'leon-blog-assets';
 
 export class QNUploader implements CdnUploader {
   mac: any;
-  preUrl: String;
+  preUrl: string;
+  bucket: string;
+  ak: string;
+  sk: string;
 
   constructor(config: vscode.WorkspaceConfiguration) {
-    let ak = config.get('qiniuAK') || '';
-    let sk = config.get('qiniuSK') || '';
-    this.mac = new qiniu.auth.digest.Mac(ak, sk);
+    this.ak = config.get('qiniuAK') || '';
+    this.sk = config.get('qiniuSK') || '';
+    this.bucket = config.get('qiniuBucket') || '';
+    this.mac = new qiniu.auth.digest.Mac(this.ak, this.sk);
     this.preUrl = config.get('qiniuPreUrl') || '';
   }
 
-  getToken(bucket: String, key: String): String {
+  getToken(bucket: string, key: string): string {
     var putPolicy = new qiniu.rs.PutPolicy({
       scope: bucket + ":" + key
     });
@@ -32,10 +26,16 @@ export class QNUploader implements CdnUploader {
     return putPolicy.uploadToken(this.mac);
   }
 
-  upload(asset: any): Promise<String> {
+  upload(asset: Buffer): Promise<String> {
     return new Promise((resolve, reject) => {
+      if (!this.bucket || !this.preUrl || !this.ak || !this.sk) {
+        vscode.window.showWarningMessage('qiniu cdn is not set correctly.');
+        reject();
+      }
+
       let key = guid();
-      let token = this.getToken(bucket, key);
+      // generate token every time so that the token will not out of date.
+      let token = this.getToken(this.bucket, key);
 
       let config = new qiniu.conf.Config();
       config.zone = qiniu.zone.Zone_z0;

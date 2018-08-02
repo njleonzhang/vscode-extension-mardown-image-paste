@@ -1,5 +1,5 @@
 import * as Constant from './const';
-const { clipboard } = require('electron');
+import { clipboard } from 'electron';
 const ipc = require('node-ipc');
 
 // start electron ipc server
