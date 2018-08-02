@@ -36,3 +36,6 @@ A command to read the image from system clipborad, optimize the size, upload to 
 ## PR welcomed
 1. support more platforms
 2. support more CDN，refer to [current code](https://github.com/njleonzhang/vscode-extension-mardown-image-paste/blob/master/src/CdnUploader/)
+
+## Development
+Clone the porject, and open it in vscode. press `F5` to start debug mode after `npm install the dependency`. At last, run `npm run package` to package a extension `vsix` file, and install it to your vscode for test.
