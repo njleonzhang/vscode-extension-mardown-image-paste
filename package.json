@@ -3,7 +3,7 @@
   "displayName": "markdown-image-paste",
   "description": "update tiny the picture, upload to github, and feedback you a link when paste a picture to markdown file ",
   "version": "0.0.1",
-  "publisher": "leonzhang",
+  "publisher": "njLeonZhang",
   "engines": {
     "vscode": "^1.25.0"
   },
