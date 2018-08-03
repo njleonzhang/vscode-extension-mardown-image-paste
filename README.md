@@ -2,27 +2,28 @@
 
 A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
-![](https://user-images.githubusercontent.com/13174059/43577232-e3e2d1f0-967d-11e8-8de8-c844aa0b93dd.gif)
-
-> can only work in dev mode due to [the vscode bug](https://github.com/Microsoft/vscode/issues/55631#issuecomment-409874534)
-
-## Installation
-* Install this extension.
-* Install the electron ipc server app.
-  ```
-    npm install -g electron-image-ipc-server
-  ```
-
-  You can start the ipc server manually by command `eiis`
+![](https://user-images.githubusercontent.com/13174059/43623851-146acf7e-9716-11e8-83b9-6fc68bcce2e0.gif)
 
 ## How?
 
 ![vscode-plugin-deep](https://user-images.githubusercontent.com/13174059/43622590-7e58580e-970f-11e8-8edd-06b97ffedf49.png)
 
 * The extension spawn a electron process for read image in clipborad via electron api `clipboard.readImage`.
-* extension thread communicate with electron process via [node-ipc](https://github.com/RIAEvangelist/node-ipc).
+* extension process communicate with electron process via [node-ipc](https://github.com/RIAEvangelist/node-ipc).
 * send the image to [tinyPng](https://tinypng.com/) for size optimization.
 * send the image to CDN for hosting
+
+## Installation
+* Install this extension.
+* Install the electron ipc server app.
+  ```
+    npm install -g electron-image-ipc-server
+    
+  ```
+
+  You can start the electron ipc server manually by command `eiis`
+
+  > you currently must manully start the electron ipc server due to [the vscode bug](https://github.com/Microsoft/vscode/issues/55631#issuecomment-409874534)
 
 ## Extension Settings
 
