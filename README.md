@@ -14,7 +14,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 * send the image to CDN for hosting
 
 ## Installation
-* Install this extension.
+* Install this extension. (search by name `markdown image paste`  in vscode extension store)
 * Install the electron ipc server app.
   ```
     npm install -g electron-image-ipc-server
