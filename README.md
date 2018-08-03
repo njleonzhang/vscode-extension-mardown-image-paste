@@ -17,7 +17,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 
 ## How?
 
-![](http://pcs7p33sr.bkt.clouddn.com/ca429c26-b378-aece-9ffa-050a3b945f49)
+![vscode-plugin-deep](https://user-images.githubusercontent.com/13174059/43622590-7e58580e-970f-11e8-8edd-06b97ffedf49.png)
 
 * The extension spawn a electron process for read image in clipborad via electron api `clipboard.readImage`.
 * extension thread communicate with electron process via [node-ipc](https://github.com/RIAEvangelist/node-ipc).
