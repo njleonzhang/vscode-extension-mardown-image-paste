@@ -23,8 +23,6 @@ A command to read the image from system clipborad, optimize the size, upload to 
 
   You can start the electron ipc server manually by command `eiis`
 
-  > you currently must manully start the electron ipc server due to [the vscode bug](https://github.com/Microsoft/vscode/issues/55631#issuecomment-409874534)
-
 ## Extension Settings
 
 | Setting | type | default | desc |
