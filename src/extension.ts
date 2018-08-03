@@ -5,14 +5,13 @@ import * as vscode from 'vscode';
 import tinify from 'tinify';
 import * as path from 'path';
 import * as fs from 'fs';
-import { spawn, ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 import * as Constant from './const';
 import { createCdnUploader } from './CdnUploader/index';
 import { guid } from './tools';
 
 const ipc = require('node-ipc');
 
-let electron: ChildProcess;
 let configuration = vscode.workspace.getConfiguration('markdownPasteImage');
 tinify.key = configuration.get('tinyPngKey') || ''; // the key is assigned to property _key
 let cdnType = configuration.get<String>('cdnType') || '';
@@ -44,28 +43,11 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
     // disconnect ipc and kill the electron process
     ipc.disconnect(Constant.childIpcId);
-    electron.kill();
 }
 
 function initPlugin(initInActivate: boolean) {
-    if (electron) {
-        electron.kill();
-    }
-
     // The code you place here will be executed every time your command is executed
-    let scriptPath = path.join(__dirname, './clipboard.js');
-    let electronPath = path.join(__dirname, '../node_modules/electron/cli.js');
-
-    var spawn_env = JSON.parse(JSON.stringify(process.env));
-
-    // start electron in non-node model, otherwise, the electron api can not be used.
-    delete spawn_env.ATOM_SHELL_INTERNAL_RUN_AS_NODE;
-    delete spawn_env.ELECTRON_RUN_AS_NODE;
-
-    electron = spawn(electronPath, [scriptPath, scriptPath], {
-        env: spawn_env,
-        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
-    });
+    spawn('eiis');
 
     // connect to the ipc server started by electron process
     ipc.config.id = Constant.parentIpcId;
