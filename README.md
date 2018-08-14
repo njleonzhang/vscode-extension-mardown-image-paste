@@ -2,6 +2,8 @@
 
 A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
+> Chinese blog introducing this extension: http://www.njleonzhang.com/2018/08/14/vs-code-paste-image.html
+
 ![](https://user-images.githubusercontent.com/13174059/43623851-146acf7e-9716-11e8-83b9-6fc68bcce2e0.gif)
 
 ## How?
