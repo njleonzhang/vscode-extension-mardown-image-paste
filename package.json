@@ -2,7 +2,7 @@
   "name": "markdown-image-paste",
   "displayName": "markdown image paste",
   "description": "update tiny the picture, upload to github, and feedback you a link when paste a picture to markdown file ",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "publisher": "njLeonZhang",
   "repository": {
     "type": "git",
@@ -67,6 +67,11 @@
           "type": "string",
           "default": "",
           "description": "proxy for github api, for exmaple: http://127.0.0.1:8087"
+        },
+        "markdownPasteImage.githubTimeOut": {
+          "type": "number",
+          "default": 10000,
+          "description": "github api is slow in china, set timeout as 10s"
         },
         "markdownPasteImage.cdnType": {
           "type": "string",

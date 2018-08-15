@@ -20,7 +20,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 * Install the electron ipc server app.
   ```
     npm install -g electron-image-ipc-server
-    
+
   ```
 
   You can start the electron ipc server manually by command `eiis`
@@ -30,13 +30,20 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | Setting | type | default | desc |
 | -- | -- | -- | --|
 | markdownPasteImage.tinyPngKey | string | '' | the tiny png developer key, refer to the [doc](https://tinypng.com/developers), if not provided, the optimization is skipped |
-| markdownPasteImage.cdnType | string | "qiniu" |  cdn type, currently only support qiniu |
+| markdownPasteImage.cdnType | string | "qiniu" |  cdn type, currently support qiniu or github |
 | markdownPasteImage.qiniuBucket | string | "" | qiniu cdn's bucket name |
 | markdownPasteImage.qiniuAK | string | "" | qiniu cdn's access key |
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
 | markdownPasteImage.qiniuPreUrl | string | "" | qiniu cdn's pre-url  |
+| markdownPasteImage.githubAccessToken | string | "" | the github access token  |
+| markdownPasteImage.githubRepo | string | "" | github repository to store your images |
+| markdownPasteImage.githubAssetFolder | string | "" | asset folder of your image bed github repository  |
+| markdownPasteImage.proxy | string | "" | proxy for github api, for exmaple: http://127.0.0.1:1087 |
+| markdownPasteImage.githubTimeOut | number | 10000 | github api is slow in china, here you can set timeout according to you network. 10s as default |
 
 > if cdn is not configured correctly or the editing file is not a mardown file, the piture will be paste to current folder of the editing file.
+
+> When use github as cdn in China, I suggest you config a proxy.
 
 | command | name | desc |
 | -- | -- | -- |
@@ -54,5 +61,5 @@ Clone the porject, and open it in vscode. press `F5` to start debug mode after `
 1. need to install a extra node module, [electron-image-ipc-server](https://github.com/njleonzhang/electron-image-ipc-server). if we bundle the electron in the extension, the extension size will be more than 70M.
 2. the extension starts a long live electron process as a `ipc` server
 3. only support mac os currently, should be easy to support other platform, PR welcomed
-4. only support [qiniu](https://www.qiniu.com/en) CDN, should be easy support others, such as Amozon S3 and Azure storage, PR welcomed.
+4. only support [qiniu](https://www.qiniu.com/en) and github as CDN, should be easy support others, such as Amozon S3 and Azure storage, PR welcomed.
 5. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485)
