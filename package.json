@@ -104,12 +104,15 @@
   },
   "dependencies": {
     "@octokit/rest": "^15.9.6",
+    "axios": "^0.18.0",
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "http-proxy-agent": "^2.1.0",
     "node-ipc": "^9.1.1",
     "path": "^0.12.7",
     "qiniu": "^7.2.1",
-    "tinify": "^1.6.0-beta.2"
+    "sha1": "^1.1.1",
+    "tinify": "^1.6.0-beta.2",
+    "tunnel": "^0.0.5"
   }
 }
