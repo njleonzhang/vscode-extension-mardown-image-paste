@@ -30,7 +30,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | Setting | type | default | desc |
 | -- | -- | -- | --|
 | markdownPasteImage.tinyPngKey | string | '' | the tiny png developer key, refer to the [doc](https://tinypng.com/developers), if not provided, the optimization is skipped |
-| markdownPasteImage.cdnType | string | "qiniu" |  cdn type, currently support qiniu or github |
+| markdownPasteImage.cdnType | string | "github" |  cdn type, currently support qiniu or github |
 | markdownPasteImage.qiniuBucket | string | "" | qiniu cdn's bucket name |
 | markdownPasteImage.qiniuAK | string | "" | qiniu cdn's access key |
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
