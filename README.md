@@ -2,6 +2,8 @@
 
 A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
+> Chinese blog introducing this extension: http://www.njleonzhang.com/2018/08/14/vs-code-paste-image.html
+
 ![](https://user-images.githubusercontent.com/13174059/43623851-146acf7e-9716-11e8-83b9-6fc68bcce2e0.gif)
 
 ## How?
@@ -14,7 +16,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 * send the image to CDN for hosting
 
 ## Installation
-* Install this extension.
+* Install this extension. (search by name `markdown image paste`  in vscode extension store)
 * Install the electron ipc server app.
   ```
     npm install -g electron-image-ipc-server
@@ -22,8 +24,6 @@ A command to read the image from system clipborad, optimize the size, upload to 
   ```
 
   You can start the electron ipc server manually by command `eiis`
-
-  > you currently must manully start the electron ipc server due to [the vscode bug](https://github.com/Microsoft/vscode/issues/55631#issuecomment-409874534)
 
 ## Extension Settings
 
