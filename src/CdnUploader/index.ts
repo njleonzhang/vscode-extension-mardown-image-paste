@@ -1,10 +1,14 @@
 import { QNUploader } from './QNUploader';
+import { GithubUploader } from './GithubUploader'
 import * as vscode from 'vscode';
 
 export function createCdnUploader(type: String, config: vscode.WorkspaceConfiguration): CdnUploader | null {
   switch(type) {
     case 'qiniu':
       return new QNUploader(config);
+
+    case 'github':
+      return new GithubUploader(config);
 
     default:
       return null;

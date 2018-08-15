@@ -48,6 +48,26 @@
           "default": "",
           "description": "the qiniu prrUrl"
         },
+        "markdownPasteImage.githubAccessToken": {
+          "type": "string",
+          "default": "",
+          "description": "the github access token"
+        },
+        "markdownPasteImage.githubRepo": {
+          "type": "string",
+          "default": "",
+          "description": "your github repository as image bed"
+        },
+        "markdownPasteImage.githubAssetFolder": {
+          "type": "string",
+          "default": "",
+          "description": "asset folder of your image bed github repository"
+        },
+        "markdownPasteImage.proxy": {
+          "type": "string",
+          "default": "",
+          "description": "proxy for github api, for exmaple: http://127.0.0.1:8087"
+        },
         "markdownPasteImage.cdnType": {
           "type": "string",
           "default": "qiniu",
@@ -83,8 +103,10 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
+    "@octokit/rest": "^15.9.6",
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
+    "http-proxy-agent": "^2.1.0",
     "node-ipc": "^9.1.1",
     "path": "^0.12.7",
     "qiniu": "^7.2.1",
