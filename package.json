@@ -2,7 +2,7 @@
   "name": "markdown-image-paste",
   "displayName": "markdown image paste",
   "description": "update tiny the picture, upload to github, and feedback you a link when paste a picture to markdown file ",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "njLeonZhang",
   "repository": {
     "type": "git",
