@@ -23,12 +23,15 @@ export class CloudinaryUploader implements CdnUploader {
 
       try {
         cloudinary.v2.uploader.upload(`data:image/png;base64,${content}`, {
-          folder: this.folder
+          folder: this.folder,
+          fetch_format: 'auto',
+          quality: 'auto'
         }, (error: any, result: any) => {
           if (error) {
             vscode.window.showWarningMessage(error.message);
             reject(error);
           } else {
+            console.log(result);
             resolve(result.secure_url);
           }
         });
