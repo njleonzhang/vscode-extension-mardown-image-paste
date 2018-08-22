@@ -73,7 +73,7 @@ export class GithubUploader implements CdnUploader {
 
     return axios.request(options).then((response: any) => {
       if (response.status === 201) {
-        return `https://cdn.rawgit.com/${this.owner}/${this.repo}/master/${fileName}`;
+        return `https://raw.githubusercontent.com/${this.owner}/${this.repo}/master/${fileName}`;
       }
       throw {
         message: `error! status: ${response.status}, message: ${(response.headers && response.headers.status) || ''}`
