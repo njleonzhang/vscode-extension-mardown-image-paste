@@ -20,10 +20,19 @@ A command to read the image from system clipborad, optimize the size, upload to 
 * Install the electron ipc server app.
   ```
     npm install -g electron-image-ipc-server
-
   ```
 
   You can start the electron ipc server manually by command `eiis`
+
+## Supported CDN Comparation
+
+| CDN | advantage | disadbantage |
+|-- |-- | -- |
+| [qiniu](https://www.qiniu.com/prices) | totally 10G free storage; monthly 1 million times free viewing; fast net access globally; big and stable company in China | need filing domain approved by China goverment for accessibility 😂 |
+| github | based on github, no access and storage limitation; great and stable company | access is slow in China |
+| [cloudinary](https://cloudinary.com/pricing) | totally 10G free storage for at most 300K items, 20 GB free monthly net viewing bandwith, fast net access globally | a small and unstable company? (not sure) |
+
+> This extension is made originally for writing my personal [techblog](https://www.njleonzhang.com/), which means the storage and network access cost to the CDN should be small. 
 
 ## Extension Settings
 
@@ -54,9 +63,8 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | extension.markdownPasteImage | Paste Image | paste the clipbord image to cdn |
 | extension.markdownPasteImage.reInit | Paste Image: Reinit | restart and reconnect to electron app which act as ipc server |
 
-## PR welcomed
-1. support more platforms
-2. support more CDN，refer to [current code](https://github.com/njleonzhang/vscode-extension-mardown-image-paste/blob/master/src/CdnUploader/)
+## PR welcomed 
+* support more CDN, such as Amozon S3 and Azure storage, refer to [current code](https://github.com/njleonzhang/vscode-extension-mardown-image-paste/blob/master/src/CdnUploader/)
 
 ## Development
 Clone the porject, and open it in vscode. press `F5` to start debug mode after `npm install the dependency`. At last, run `npm run package` to package a extension `vsix` file, and install it to your vscode for test.
@@ -64,6 +72,4 @@ Clone the porject, and open it in vscode. press `F5` to start debug mode after `
 ## Limitations
 1. need to install a extra node module, [electron-image-ipc-server](https://github.com/njleonzhang/electron-image-ipc-server). if we bundle the electron in the extension, the extension size will be more than 70M.
 2. the extension starts a long live electron process as a `ipc` server
-3. only support mac os currently, should be easy to support other platform, PR welcomed
-4. only support [qiniu](https://www.qiniu.com/en), github and [cloudinary](https://cloudinary.com/) as CDN, should be easy support others, such as Amozon S3 and Azure storage, PR welcomed.
-5. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485)
+3. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485)
