@@ -29,7 +29,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | CDN | advantage | disadbantage |
 |-- |-- | -- |
 | [qiniu](https://www.qiniu.com/prices) | totally 10G free storage; monthly 1 million times free viewing; fast net access globally; big and stable company in China | need filing domain approved by China goverment for accessibility 😂 |
-| github | based on github, no access and storage limitation; great and stable company | access is slow in China |
+| github | based on github, no access and storage limitation if you follow the [terms of service](https://help.github.com/articles/github-terms-of-service/); great and stable company | access is slow in China |
 | [cloudinary](https://cloudinary.com/pricing) | totally 10G free storage for at most 300K items, 20 GB free monthly net viewing bandwith, fast net access globally | a small and unstable company? (not sure) |
 
 > This extension is made originally for writing my personal [techblog](https://www.njleonzhang.com/), which means the storage and network access cost to the CDN should be small. 
