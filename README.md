@@ -26,7 +26,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 
 ## Supported CDN Comparation
 
-| CDN | advantage | disadbantage |
+| CDN | Advantage | Disadvantage |
 |-- |-- | -- |
 | [qiniu](https://www.qiniu.com/prices) | totally 10G free storage; monthly 1 million times free viewing; fast net access globally; big and stable company in China | need filing domain approved by China goverment for accessibility 😂 |
 | github | based on github, no access and storage limitation if you follow the [terms of service](https://help.github.com/articles/github-terms-of-service/); great and stable company | access is slow in China |
