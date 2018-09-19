@@ -87,10 +87,11 @@ function initPlugin(initInActivate: boolean) {
             }
 
             let currentFilePath = getCurrentFilePath();
-
+            console.log(currentFilePath);
             // if the target file is a temporary file or md file, then try to upload asset to cdn
             if (currentFilePath.match(/^Untitled-.*|.*\.md$/)) {
                 let uploader = createCdnUploader(cdnType, configuration);
+                console.log(uploader);
                 if (uploader) {
                     uploader
                         .upload(buffer)
@@ -99,7 +100,7 @@ function initPlugin(initInActivate: boolean) {
                         })
                         .catch(e => {
                             // cdn upload fail
-                            copyAssetToCurrentFolder(buffer, currentFilePath);
+                            vscode.window.showInformationMessage('upload to cdn fail');
                         });
                 } else {
                     // no cdn

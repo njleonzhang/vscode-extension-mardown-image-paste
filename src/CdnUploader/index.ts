@@ -2,6 +2,7 @@ import { QNUploader } from './QNUploader';
 import { GithubUploader } from './GithubUploader'
 import { CloudinaryUploader } from './CloudinaryUploader';
 import * as vscode from 'vscode';
+import { SMUploader } from './SMUploader';
 
 export function createCdnUploader(type: String, config: vscode.WorkspaceConfiguration): CdnUploader | null {
   switch(type) {
@@ -13,6 +14,9 @@ export function createCdnUploader(type: String, config: vscode.WorkspaceConfigur
 
     case 'cloudinary':
       return new CloudinaryUploader(config);
+
+    case 'sm':
+      return new SMUploader();
 
     default:
       return null;
