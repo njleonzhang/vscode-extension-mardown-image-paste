@@ -24,13 +24,14 @@ A command to read the image from system clipborad, optimize the size, upload to 
 
   You can start the electron ipc server manually by command `eiis`
 
-## Supported CDN Comparation
+## Supported CDN Comparison
 
 | CDN | Advantage | Disadvantage |
 |-- |-- | -- |
 | [qiniu](https://www.qiniu.com/prices) | totally 10G free storage; monthly 1 million times free viewing; fast net access globally; big and stable company in China | need filing domain approved by China goverment for accessibility 😂 |
 | github | based on github, little limitation if you follow the [terms of service](https://help.github.com/articles/github-terms-of-service/) and [github pages limits](https://help.github.com/articles/what-is-github-pages/#usage-limits); great and stable company | access is slow in China |
 | [cloudinary](https://cloudinary.com/pricing) | totally 10G free storage for at most 300K items, 20 GB free monthly net viewing bandwith, fast net access globally | a small and unstable company? (not sure) |
+| [sm.ms](https://sm.ms/) | No limitation, fast access in China | no account, and you can not manage your picture, private projects |
 
 > This extension is made originally for writing my personal [techblog](https://www.njleonzhang.com/), which means the storage and network access cost to the CDN should be small. You should not use this extension to upload pitures with mass access to `github`, which may exceed [github pages limits](https://help.github.com/articles/what-is-github-pages/#usage-limits).
 
@@ -38,8 +39,8 @@ A command to read the image from system clipborad, optimize the size, upload to 
 
 | Setting | type | default | desc |
 | -- | -- | -- | --|
+| markdownPasteImage.cdnType | string | "github" |  cdn type, currently support [qiniu](https://www.qiniu.com/), github, [cloudinary](https://cloudinary.com/), [sm.ms](https://sm.ms/) |
 | markdownPasteImage.tinyPngKey | string | '' | the tiny png developer key, refer to the [doc](https://tinypng.com/developers), if not provided, the optimization is skipped |
-| markdownPasteImage.cdnType | string | "github" |  cdn type, currently support [qiniu](https://www.qiniu.com/), github, [cloudinary](https://cloudinary.com/) |
 | markdownPasteImage.qiniuBucket | string | "" | qiniu cdn's bucket name |
 | markdownPasteImage.qiniuAK | string | "" | qiniu cdn's access key |
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
@@ -54,22 +55,21 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | markdownPasteImage.cloudinarySecret | string | "" | api secret of cloudinary |
 | markdownPasteImage.cloudinaryFolder | string | "" | folder of cloudinary you want to put your image in |
 
-> if cdn is not configured correctly or the editing file is not a mardown file, the piture will be paste to current folder of the editing file.
+> if cdn is not configured correctly or the editing file is not a markdown file, the picture will be paste to current folder of the editing file.
 
-> When use github as cdn in China, I suggest you config a proxy.
+> if you use github as cdn in China, I suggest you config a proxy.
 
 | command | name | desc |
 | -- | -- | -- |
 | extension.markdownPasteImage | Paste Image | paste the clipbord image to cdn |
 | extension.markdownPasteImage.reInit | Paste Image: Reinit | restart and reconnect to electron app which act as ipc server |
 
-## PR welcomed 
+## PR welcomed
 * support more CDN, such as Amozon S3 and Azure storage, refer to [current code](https://github.com/njleonzhang/vscode-extension-mardown-image-paste/blob/master/src/CdnUploader/)
 
 ## Development
 Clone the porject, and open it in vscode. press `F5` to start debug mode after `npm install the dependency`. At last, run `npm run package` to package a extension `vsix` file, and install it to your vscode for test.
 
 ## Limitations
-1. need to install a extra node module, [electron-image-ipc-server](https://github.com/njleonzhang/electron-image-ipc-server). if we bundle the electron in the extension, the extension size will be more than 70M.
-2. the extension starts a long live electron process as a `ipc` server
-3. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485)
+1. need to install a extra node module, [electron-image-ipc-server](https://github.com/njleonzhang/electron-image-ipc-server). if we bundle the electron in the extension, the extension size will be more than 70M. `electron-image-ipc-server` is started as a long live electron process by the extension.
+2. can not support `gif` due to the [limitation of electron api](https://github.com/electron/electron/issues/8485)
