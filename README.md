@@ -45,7 +45,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | markdownPasteImage.qiniuAK | string | "" | qiniu cdn's access key |
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
 | markdownPasteImage.qiniuPreUrl | string | "" | qiniu cdn's pre-url  |
-| markdownPasteImage.githubAccessToken | string | "" | the github access token  |
+| markdownPasteImage.githubAccessToken | string | "" | the github access token, created in [github](https://github.com/settings/tokens) with all privilege of `repo` scope |
 | markdownPasteImage.githubRepo | string | "" | github repository to store your images, example: [njleonzhang/image-bed](https://github.com/njleonzhang/image-bed) |
 | markdownPasteImage.githubAssetFolder | string | "" | asset folder of your image bed github repository  |
 | markdownPasteImage.proxy | string | "" | proxy for github api, for exmaple: http://127.0.0.1:1087 |
