@@ -46,8 +46,8 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | markdownPasteImage.qiniuSK | string | "" | qiniu cdn's security key |
 | markdownPasteImage.qiniuPreUrl | string | "" | qiniu cdn's pre-url  |
 | markdownPasteImage.githubAccessToken | string | "" | the github access token, created in [github token management page](https://github.com/settings/tokens) with all privileges of `repo` scope |
-| markdownPasteImage.githubRepo | string | "" | github repository to store your images, example: [njleonzhang/image-bed](https://github.com/njleonzhang/image-bed) |
-| markdownPasteImage.githubAssetFolder | string | "" | asset folder of your image bed github repository  |
+| markdownPasteImage.githubRepo | string | "" | github repository to store your images, example: [njleonzhang/image-bed](https://github.com/njleonzhang/image-bed);<br/> Formart: `[username]/[repo name]`, for example: `njleonzhang/image-bed` |
+| markdownPasteImage.githubAssetFolder | string | "" | asset folder of your image bed github repository |
 | markdownPasteImage.proxy | string | "" | proxy for github api, for exmaple: http://127.0.0.1:1087 |
 | markdownPasteImage.githubTimeOut | number | 10000 | github api is slow in china, here you can set timeout according to you network. 10s as default |
 | markdownPasteImage.cloudinaryName | string | "" | cloud name of cloudinary |
