@@ -1,4 +1,4 @@
-# vscode-extension-mardown-image-paste
+# vscode-extension-mardown-image-paste (currently macos only)
 
 A command to read the image from system clipborad, optimize the size, upload to CDN, and return you the CDN link. Support jpg, png, pdf....
 
