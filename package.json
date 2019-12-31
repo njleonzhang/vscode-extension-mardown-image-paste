@@ -128,9 +128,11 @@
     "vscode": "^1.1.18"
   },
   "dependencies": {
+    "aws-sdk": "^2.596.0",
     "axios": "^0.18.0",
     "child_process": "^1.0.2",
     "cloudinary": "^1.11.0",
+    "file-type": "^12.4.2",
     "form-data": "^2.3.2",
     "fs": "^0.0.1-security",
     "http-proxy-agent": "^2.1.0",

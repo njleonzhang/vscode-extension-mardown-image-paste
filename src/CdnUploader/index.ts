@@ -3,6 +3,7 @@ import { GithubUploader } from './GithubUploader'
 import { CloudinaryUploader } from './CloudinaryUploader';
 import * as vscode from 'vscode';
 import { SMUploader } from './SMUploader';
+import { S3Uploader } from './S3Uploader';
 
 export function createCdnUploader(type: String, config: vscode.WorkspaceConfiguration): CdnUploader | null {
   switch(type) {
@@ -17,6 +18,9 @@ export function createCdnUploader(type: String, config: vscode.WorkspaceConfigur
 
     case 'sm':
       return new SMUploader();
+
+    case 's3':
+      return new S3Uploader(config);
 
     default:
       return null;
