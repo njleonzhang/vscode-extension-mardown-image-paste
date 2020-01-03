@@ -32,6 +32,7 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | github | based on github, little limitation if you follow the [terms of service](https://help.github.com/articles/github-terms-of-service/) and [github pages limits](https://help.github.com/articles/what-is-github-pages/#usage-limits); great and stable company | access is slow in China |
 | [cloudinary](https://cloudinary.com/pricing) | totally 10G free storage for at most 300K items, 20 GB free monthly net viewing bandwith, fast net access globally | a small and unstable company? (not sure) |
 | [sm.ms](https://sm.ms/) | No limitation, fast access in China | no account, and you can not manage your picture, private projects |
+| [s3](https://aws.amazon.com/s3/) | Pay only for what you use. There is no minimum fee, fast access in global | need AWS account |
 
 > This extension is made originally for writing my personal [techblog](https://www.njleonzhang.com/), which means the storage and network access cost to the CDN should be small. You should not use this extension to upload pitures with mass access to `github`, which may exceed [github pages limits](https://help.github.com/articles/what-is-github-pages/#usage-limits).
 
@@ -54,6 +55,10 @@ A command to read the image from system clipborad, optimize the size, upload to 
 | markdownPasteImage.cloudinaryApiKey | string | "" | api key of cloudinary |
 | markdownPasteImage.cloudinarySecret | string | "" | api secret of cloudinary |
 | markdownPasteImage.cloudinaryFolder | string | "" | folder of cloudinary you want to put your image in |
+| markdownPasteImage.s3Bucket | string | "" | s3 bucket name, like "com.xxx.xxx" |
+| markdownPasteImage.s3PreUrl | string | "" | s3 domain name, like "img.xxx.xxx" |
+
+> when you select s3, you must config s3 Credentials in your computer, follow this link step: <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html>
 
 > if cdn is not configured correctly or the editing file is not a markdown file, the picture will be paste to current folder of the editing file.
 
