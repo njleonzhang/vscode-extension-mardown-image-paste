@@ -129,7 +129,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.596.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "child_process": "^1.0.2",
     "cloudinary": "^1.11.0",
     "file-type": "^12.4.2",
