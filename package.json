@@ -128,7 +128,7 @@
     "vscode": "^1.1.18"
   },
   "dependencies": {
-    "aws-sdk": "^2.596.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0",
     "child_process": "^1.0.2",
     "cloudinary": "^1.11.0",
